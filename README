@@ -1,1 +1,1 @@
-Build an msp430-elf toolchain to assemble, link, and debug MSP430 programs. 
+Build an msp430-elf toolchain to assemble, link, program and debug MSP430 programs. 

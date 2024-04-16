@@ -1,0 +1,17 @@
+CLONE MSPDEBUG
+
+  cd src
+  git clone https://github.com/dlbeer/mspdebug.git
+  cd mspdebug
+
+
+SELECT AN INSTALLATION PREFIX
+
+  export PREFIX=/usr/local/msp430
+
+
+BUILD MSPDEBUG
+
+  mkdir -p logs
+  time WITHOUT_READLINE=1 make 2>&1 | tee logs/build.log
+  time WITHOUT_READLINE=1 make install 2>&1 | tee logs/install.log
