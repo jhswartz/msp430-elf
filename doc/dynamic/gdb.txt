@@ -1,0 +1,24 @@
+DOWNLOAD & EXTRACT GDB
+
+  cd src
+  wget https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz
+  tar xJf gdb-14.2.tar.xz
+  cd gdb-14.2
+
+
+SELECT AN INSTALLATION PREFIX
+
+  export PREFIX=/usr/local/msp430
+
+
+CONFIGURE GDB 
+
+  mkdir -p build/logs
+  cd build
+  ../configure --target=msp430-elf --prefix="$PREFIX" --disable-gdbserver 2>&1 | tee logs/configure.log 
+
+
+BUILD GDB
+
+  time make 2>&1 | tee logs/build.log
+  time make install-strip 2>&1 | tee logs/install.log

@@ -1,0 +1,24 @@
+DOWNLOAD & EXTRACT BINUTILS
+
+  cd src
+  wget https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.xz
+  tar xJf binutils-2.42.tar.xz
+  cd binutils-2.42
+
+
+SELECT AN INSTALLATION PREFIX
+
+  export PREFIX=/usr/local/msp430
+
+
+CONFIGURE BINUTILS
+
+  mkdir -p build/logs
+  cd build
+  ../configure --target=msp430-elf --prefix="$PREFIX" --disable-nls 2>&1 | tee logs/configure.log
+
+
+BUILD BINUTILS
+
+  time make 2>&1 | tee logs/build.log
+  time make install-strip 2>&1 | tee logs/install.log

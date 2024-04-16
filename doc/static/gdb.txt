@@ -1,0 +1,31 @@
+DOWNLOAD & EXTRACT GDB
+
+  cd src
+  wget https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz
+  tar xJf gdb-14.2.tar.xz
+  cd gdb-14.2
+
+
+SELECT AN INSTALLATION PREFIX
+
+  export PREFIX=/usr/local/msp430-static
+
+
+PATCH GDB
+
+  sed -i -e "s/RDYNAMIC=['\"].*['\"]/RDYNAMIC=''/g" gdb/configure
+  sed -i -e 's/^CC_LD.*$/& -static/g' gdb/Makefile.in
+  sed -i -e 's/n_worker_threads = -1/n_worker_threads = 0/g' gdb/maint.c
+
+
+CONFIGURE GDB 
+
+  mkdir -p build/logs
+  cd build
+  ../configure --target=msp430-elf --prefix="$PREFIX" --disable-gdbserver --with-stage1-ldflags="--static" 2>&1 | tee logs/configure.log 
+
+
+BUILD GDB
+
+  time make 2>&1 | tee logs/build.log
+  time make install-strip 2>&1 | tee logs/install.log
