@@ -1,0 +1,36 @@
+PREPARATION
+
+  This demonstration assumes that you have a functional MSP430G2553
+  installed in a MSP-EXP430G2 LaunchPad, and attached to your host
+  via a +-3.3V UART interface.
+        
+  Ensure that the following connections are established.
+
+    Host GND ----  MSP430G2553 GND
+    Host TX  ----  MSP430G2553 P1.1 (RX)
+    Host RX  ----  MSP430G2553 P1.2 (TX)
+
+
+BUILD
+
+  Make sure that msp430-elf-as and msp430-elf-ld are accessible.
+
+    $ AS=msp430-elf-as LD=msp430-elf-ld LDFLAGS="-T msp430g2553.ld"  make
+
+
+PROGRAM
+
+  Substitute rf2500 with the appropriate driver, if need be.
+ 
+    $ mspdebug rf2500 "prog uart-echo"
+
+
+TEST
+
+  Substitute /dev/ttyUSB0 with the device node associated your host's
+  UART interface, if required.
+
+    $ socat - /dev/ttyUSB0,raw,echo=0,b19200
+    QUACK! QUACK!
+    QUACK! QUACK!
+    ^C
